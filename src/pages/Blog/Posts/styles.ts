@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 
 export const PostsContainer = styled.section`
@@ -8,7 +9,10 @@ export const PostsContainer = styled.section`
   margin-top: 3rem;
 `
 
-export const PostContainer = styled.article`
+export const PostContainer = styled(NavLink)`
+  text-decoration: none;
+  min-height: 260px;
+
   background-color: ${(props) => props.theme['base-post']};
   border-radius: 10px;
   padding: 2rem;
@@ -18,9 +22,18 @@ export const PostContainer = styled.article`
     align-items: flex-start;
     justify-content: space-between;
     margin-bottom: 1.25rem;
+    gap: 1rem;
+
+    strong {
+      flex: 1;
+    }
 
     span {
       white-space: nowrap;
     }
+  }
+
+  &:hover header strong {
+    color: ${(props) => props.theme.primary};
   }
 `

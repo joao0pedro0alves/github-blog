@@ -1,43 +1,37 @@
+import { useContext } from 'react'
+import { formatDistanceToNow } from 'date-fns'
 import { Text } from '../../../components/Text'
+import { BlogContext } from '../../../contexts/BlogContext'
 import { PostsContainer, PostContainer } from './styles'
 
 export function Posts() {
+  const { posts } = useContext(BlogContext)
+
   return (
     <PostsContainer>
-      <PostContainer>
-        <header>
-          <Text component="strong" variant="base-title" weight="bold" size="xl">
-            JavaScript data types and data structures
-          </Text>
-          <Text component="span" variant="base-span" size="sm">
-            Há 1 dia
-          </Text>
-        </header>
+      {posts.map((post) => {
+        return (
+          <PostContainer to={`/post/${post.number}`} key={post.id}>
+            <header>
+              <Text
+                component="strong"
+                variant="base-title"
+                weight="bold"
+                size="xl"
+              >
+                {post.title}
+              </Text>
+              <Text component="span" variant="base-span" size="sm">
+                {formatDistanceToNow(new Date(post.created_at))}
+              </Text>
+            </header>
 
-        <Text component="p">
-          Programming languages all have built-in data structures, but these
-          often differ from one language to another. This article attempts to
-          list the built-in data structures available in JavaScript and what
-          properties they ha...
-        </Text>
-      </PostContainer>
-      <PostContainer>
-        <header>
-          <Text component="strong" variant="base-title" weight="bold" size="xl">
-            JavaScript data types and data structures
-          </Text>
-          <Text component="span" variant="base-span" size="sm">
-            Há 1 dia
-          </Text>
-        </header>
-
-        <Text component="p">
-          Programming languages all have built-in data structures, but these
-          often differ from one language to another. This article attempts to
-          list the built-in data structures available in JavaScript and what
-          properties they ha...
-        </Text>
-      </PostContainer>
+            <Text component="p">
+              {post.body?.substring(0, 200).concat('...')}
+            </Text>
+          </PostContainer>
+        )
+      })}
     </PostsContainer>
   )
 }
