@@ -76,7 +76,7 @@ export function Post() {
           </Text>
           <Text component="span">
             <Icon icon={faCalendarDay} />
-            {formatDistanceToNow(new Date(post.created_at))}
+            {post.created_at && formatDistanceToNow(new Date(post.created_at))}
           </Text>
           <Text component="span">
             <Icon icon={faComment} />
