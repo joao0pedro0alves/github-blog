@@ -5,6 +5,7 @@ import {
   faUserGroup,
 } from '@fortawesome/free-solid-svg-icons'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
+import { useState, useEffect } from 'react'
 
 import { Text } from '../Text'
 import {
@@ -13,16 +14,38 @@ import {
   SummaryChips,
   SummaryTitle,
 } from './styles'
+import { githubApi } from '../../lib/github-api'
+
+interface User {
+  login: string
+  avatar_url: string
+  name: string
+  company: string
+  followers: number
+  bio: string
+}
 
 export function Profile() {
+  const [user, setUser] = useState<null | User>(null)
+
+  function fetchUserData() {
+    githubApi
+      .get('/users/joao0pedro0alves')
+      .then((response) => setUser(response.data))
+  }
+
+  useEffect(() => {
+    fetchUserData()
+  }, [])
+
   return (
     <ProfileContainer>
-      <img src="https://github.com/joao0pedro0alves.png" alt="" />
+      <img src={user?.avatar_url} alt="" />
 
       <ProfileSummaryContainer>
         <SummaryTitle>
           <Text weight="bold" size="2xl" variant="base-title">
-            João Pedro Alves Pereira
+            {user?.name}
           </Text>
 
           <a
@@ -35,24 +58,20 @@ export function Profile() {
           </a>
         </SummaryTitle>
 
-        <Text component="p">
-          Tristique volutpat pulvinar vel massa, pellentesque egestas. Eu
-          viverra massa quam dignissim aenean malesuada suscipit. Nunc, volutpat
-          pulvinar vel mass.
-        </Text>
+        <Text component="p">{user?.bio}</Text>
 
         <SummaryChips>
           <Text component="span">
             <Icon icon={faGithub} />
-            joao0pedroAlves
+            {user?.login}
           </Text>
           <Text component="span">
             <Icon icon={faBuilding} />
-            Ecosis
+            {user?.company}
           </Text>
           <Text component="span">
             <Icon icon={faUserGroup} />
-            32 seguidores
+            {user?.followers} seguidores
           </Text>
         </SummaryChips>
       </ProfileSummaryContainer>

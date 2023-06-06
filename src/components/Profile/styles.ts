@@ -19,9 +19,14 @@ export const ProfileContainer = styled.div`
 `
 
 export const ProfileSummaryContainer = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
   p {
     margin-top: 0.5rem;
     margin-bottom: 1.5rem;
+    flex: 1;
   }
 `
 
