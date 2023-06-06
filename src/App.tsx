@@ -1,13 +1,18 @@
+import { BrowserRouter } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
+import { Router } from './Router'
 import { GlobalStyle } from './styles/global'
 import { defaultTheme } from './styles/themes/default'
-import { RootLayout } from './_layout'
+
+import './lib/date-fns'
 
 export function App() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <GlobalStyle />
-      <RootLayout />
+      <BrowserRouter>
+        <Router />
+      </BrowserRouter>
     </ThemeProvider>
   )
 }
