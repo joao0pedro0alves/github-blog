@@ -3,6 +3,7 @@ import styled from 'styled-components'
 export const PostContainer = styled.main`
   max-width: 54rem; // 864px;
   margin: -5.5rem auto 0;
+  padding: 0 1rem;
 `
 
 export const PostHeader = styled.header`

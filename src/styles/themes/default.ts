@@ -12,4 +12,4 @@ export const defaultTheme = {
   'base-input': '#040F1A',
 
   primary: '#3294F8',
-}
+} as const
